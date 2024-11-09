@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WatercolorsPaintingRepository.Repositories.StyleRepo;
 
 namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
@@ -15,6 +16,7 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "3")]
         public async Task<IActionResult> GetStyles()
         {
             var styles = await _styleRepository.GetAll();

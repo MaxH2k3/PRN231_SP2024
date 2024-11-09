@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Models;
 using PEPRN231_FA24_TongTranLeHuy_BE.Models;
@@ -29,6 +30,7 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 		/// <returns></returns>
 		[EnableQuery]
 		[HttpGet]
+		[Authorize(Roles = "2, 3")]
 		public async Task<IActionResult> GetWaterColors()
 		{
 			var waterColorsPaintins = await _waterColorsPaintingRepository.GetAll();
@@ -58,7 +60,8 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddWaterColors([FromBody] WatercolorsPaintingRequest request)
+        [Authorize(Roles = "3")]
+        public async Task<IActionResult> AddWaterColors([FromBody] WatercolorsPaintingRequest request)
 		{
 			if(!request.ValidateData(_styleRepository))
 			{
@@ -102,7 +105,8 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateWaterColors(string id, [FromBody] WatercolorsPaintingRequest request)
+        [Authorize(Roles = "3")]
+        public async Task<IActionResult> UpdateWaterColors(string id, [FromBody] WatercolorsPaintingRequest request)
 		{
 			if (!request.ValidateData(_styleRepository))
 			{
@@ -146,7 +150,8 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 		}
 
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteWaterColors(string id)
+        [Authorize(Roles = "3")]
+        public async Task<IActionResult> DeleteWaterColors(string id)
 		{
 			var result = await _waterColorsPaintingRepository.Delete(id);
 

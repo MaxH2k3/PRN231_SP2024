@@ -9,6 +9,7 @@
         public decimal? Price { get; set; }
         public int? PublishYear { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string? StyleId { get; set; }
         public Style? Style { get; set; }
     }
 }
