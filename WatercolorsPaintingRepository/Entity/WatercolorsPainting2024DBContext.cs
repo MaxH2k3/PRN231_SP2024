@@ -20,19 +20,12 @@ namespace WatercolorsPaintingRepository.Entity
         public virtual DbSet<UserAccount> UserAccounts { get; set; } = null!;
         public virtual DbSet<WatercolorsPainting> WatercolorsPaintings { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(local);User Id=sa;Password=12345;Database=WatercolorsPainting2024DB;TrustServerCertificate=True;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Style>(entity =>
             {
+                entity.HasKey(e => e.StyleId);
+
                 entity.ToTable("Style");
 
                 entity.Property(e => e.StyleId).HasMaxLength(50);
@@ -40,6 +33,8 @@ namespace WatercolorsPaintingRepository.Entity
                 entity.Property(e => e.OriginalCountry).HasMaxLength(255);
 
                 entity.Property(e => e.StyleName).HasMaxLength(255);
+
+                entity.Property(e => e.StyleDescription);
             });
 
             modelBuilder.Entity<UserAccount>(entity =>
@@ -57,8 +52,7 @@ namespace WatercolorsPaintingRepository.Entity
 
             modelBuilder.Entity<WatercolorsPainting>(entity =>
             {
-                entity.HasKey(e => e.PaintingId)
-                    .HasName("PK__Watercol__CF2D90F25C045092");
+                entity.HasKey(e => e.PaintingId);
 
                 entity.ToTable("WatercolorsPainting");
 
@@ -75,9 +69,8 @@ namespace WatercolorsPaintingRepository.Entity
                 entity.Property(e => e.StyleId).HasMaxLength(50);
 
                 entity.HasOne(d => d.Style)
-                    .WithMany(p => p.WatercolorsPaintings)
-                    .HasForeignKey(d => d.StyleId)
-                    .HasConstraintName("FK_WatercolorsPainting_Style");
+                    .WithMany()
+                    .HasForeignKey(d => d.StyleId);
             });
 
             OnModelCreatingPartial(modelBuilder);

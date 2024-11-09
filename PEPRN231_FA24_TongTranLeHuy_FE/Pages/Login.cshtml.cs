@@ -56,7 +56,7 @@ namespace OilPaintingArt_TranCongLam.Pages
 						HttpContext.Session.SetInt32("Role", (int)apiResponse.Data.Role!);
 						HttpContext.Session.SetString("AccessToken", apiResponse.Data.Token);
 
-						return Redirect("./OilPaintingArts/OilPaintingArtsPages");
+						return Redirect("./home");
                     }
                    
                     else

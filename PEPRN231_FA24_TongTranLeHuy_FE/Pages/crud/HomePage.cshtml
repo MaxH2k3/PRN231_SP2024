@@ -1,0 +1,113 @@
+﻿@page "/home"
+@model UI.Pages.crud.HomePageModel
+
+
+@{
+    ViewData["Title"] = "Warter painting";
+    int? Role = HttpContext.Session.GetInt32("Role");
+}
+
+@if (Role == 3)
+{
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+
+
+<form asp-page="./home" method="get" style="margin-left: 50px">
+    <div class="form-action no-color">
+        <p>
+            Search by Author:
+            <br /> <input name="paintingAuthorSearch" value="@Model.PaintingAuthorSearch" /> <br />
+            And Publish Year:
+            <br /> <input name="publishYearSearch" value="@Model.PublishYearSearch" /> <br />
+            <input type="submit" value="Search" class="btn btn-primary my-2" /> <br />
+            <a asp-page="HomePage" class="btn btn-outline-primary">Back to full list</a>
+        </p>
+    </div>
+</form>
+
+<div style="margin: 20px 40px">
+    <table class="table table-bordered table-hover table-light">
+        <thead>
+            <tr class="text-center">
+                <th>
+                    Painting Name
+                </th>
+                <th>
+                    Painting Description
+                </th>
+                <th>
+                    Painting Author
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Publish Year
+                </th>
+                <th>
+                    Created Date
+                </th>
+                <th>
+                    Style Name
+                </th>
+                <th>
+                    Style Description
+                </th>
+                <th>
+                    Original Country
+                </th>
+                @if (Role == 3)
+                {
+                    <th>
+                        Action
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WaterColorsPaintings)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaintingName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaintingDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaintingAuthor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PublishYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Style.StyleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Style.StyleDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Style.OriginalCountry)
+                    </td>
+                    @if (Role == 3)
+                    {
+                        <td>
+                            <a asp-page="UpdatePage" asp-route-id="@item.PaintingId" class="btn btn-outline-primary" style="margin: 10px 10px">Edit</a>
+                            <a asp-page="DeletePage" asp-route-id="@item.PaintingId" class="btn btn-outline-warning" style="margin: 10px 10px">Delete</a>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -46,7 +46,10 @@ namespace WatercolorsPaintingRepository.Repositories.WaterColorsPaintingRepo
 
 		public async Task<IEnumerable<WatercolorsPainting>> GetAll()
 		{
-			return await _context.WatercolorsPaintings.ToListAsync();
+			return await _context.WatercolorsPaintings
+				.Include(p => p.Style)
+				.AsQueryable()
+				.ToListAsync();
 		}
 
 		public async Task<string> CreateId()

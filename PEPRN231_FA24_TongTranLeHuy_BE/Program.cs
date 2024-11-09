@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using PEPRN231_FA24_TongTranLeHuy_BE.Configuration;

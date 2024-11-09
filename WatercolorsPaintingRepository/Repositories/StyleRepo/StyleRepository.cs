@@ -22,5 +22,11 @@ namespace WatercolorsPaintingRepository.Repositories.StyleRepo
 			return _context.Styles.Any(s => s.StyleId.Equals(id));
 		}
 
+		public async Task<IEnumerable<Style>> GetAll()
+		{
+			return await _context.Styles.AsQueryable()
+                .ToListAsync();
+        }
+
 	}
 }

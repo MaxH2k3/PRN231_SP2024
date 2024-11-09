@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WatercolorsPaintingRepository.Entity
+﻿namespace PEPRN231_FA24_TongTranLeHuy_FE.Models
 {
-    public partial class Style
+    public class Style
     {
-
         public string StyleId { get; set; } = null!;
         public string StyleName { get; set; } = null!;
         public string StyleDescription { get; set; } = null!;

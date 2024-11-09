@@ -23,26 +23,21 @@ namespace PEPRN231_FA24_TongTranLeHuy_FE.Helper
 		{
 			var url = $"{_baseUrl}/{endpoint.TrimStart('/')}";
 
-			// Tạo request chung
 			using var request = new HttpRequestMessage(method, url);
 
-			// Gắn dữ liệu nếu có
 			if (data != null)
 			{
 				request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 			}
 
-			// Thêm Authorization header nếu có token
-			var token = _httpContextAccessor.HttpContext?.Session.GetString("accessToken");
+			var token = _httpContextAccessor.HttpContext?.Session.GetString("AccessToken");
 			if (!string.IsNullOrEmpty(token) && (token != null))
 			{
 				request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			}
 
-			// Gửi yêu cầu
 			using var response = await _httpClient.SendAsync(request);
 
-			// Xử lý phản hồi
 			//if (!response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized) return default;
 
 			var responseStream = await response.Content.ReadAsStringAsync();
