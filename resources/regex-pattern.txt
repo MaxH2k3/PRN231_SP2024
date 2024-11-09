@@ -1,0 +1,8 @@
+[RegularExpression(@"^([A-Z][A-Za-z@$&()]*\s)*[A-Z][A-Za-z@$&()]*$", ErrorMessage = "Each word of the BraceletName must begin with a capital letter, and is not allowed with number or special characters")]
+[RegularExpression(@"^([A-Z][a-zA-Z0-9@#\$&\(\)]*\s?)*$", ErrorMessage = "Each word of the BraceletName must begin with a capital letter, and is allowed with number or special characters")]
+[RegularExpression(@"^([A-Z][a-zA-Z@#\$&\(\)]*\s?)*$", ErrorMessage = "Each word of the BraceletName must begin with a capital letter, and is not allowed with number but allowed special characters")]
+[RegularExpression(@"^([A-Z][a-zA-Z0-9]*\s?)*$", ErrorMessage = "Each word of the BraceletName must begin with a capital letter, and is allowed with number but is not allowed special characters")]
+[RegularExpression(@"^([a-z][a-zA-Z0-9@#\$&\(\)]*\s?)*$", ErrorMessage = "Each word of the BraceletName must begin with a low letter, and is allowed with number or is special characters")]
+[RegularExpression(@"^([a-z][a-z0-9@#\$&\(\)]*\s?)*$", ErrorMessage = "Each word of the BraceletName must be a low letter, and is allowed with number or is special characters")]
+
+[RegularExpression(@"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/([0-9]{4})$", ErrorMessage = "Invalid date format. Use MM/dd/yyyy.")]

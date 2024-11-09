@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=(local);User Id=sa;Password=12345;Database=WatercolorsPainting2024DB;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ..\WatercolorsPaintingRepository\Entity

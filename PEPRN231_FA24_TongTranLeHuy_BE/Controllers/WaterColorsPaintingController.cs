@@ -35,6 +35,7 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 			return Ok(waterColorsPaintins);
 		}
 
+		[HttpGet("{id}")]
 		public async Task<IActionResult> GetWaterColorsById(string id)
 		{
 			var waterColorsPainting = await _waterColorsPaintingRepository.GetById(id);
