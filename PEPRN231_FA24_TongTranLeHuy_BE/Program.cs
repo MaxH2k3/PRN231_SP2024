@@ -32,6 +32,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors();
+builder.Services.AddJWT(builder.Configuration);
+builder.Services.AddSwagger();
 
 var app = builder.Build();
 
