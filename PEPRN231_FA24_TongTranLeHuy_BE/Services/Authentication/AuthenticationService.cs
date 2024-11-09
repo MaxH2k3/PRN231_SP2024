@@ -36,7 +36,7 @@ namespace Services
 					new Claim[]
 					{
 						new Claim(UserClaimType.UserId, user.UserAccountId.ToString()),
-						new Claim(UserClaimType.Role, user.Role.ToString()!)
+						new Claim(ClaimTypes.Role, user.Role.ToString()!)
 					}
 				),
 				Expires = DateTime.Now.AddDays((double)_jwtsetting.TokenExpiry!),
