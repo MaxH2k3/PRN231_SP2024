@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Models;
 using PEPRN231_FA24_TongTranLeHuy_BE.Models;
+using System.Net;
 using WatercolorsPaintingRepository.Entity;
 using WatercolorsPaintingRepository.Repositories.StyleRepo;
 using WatercolorsPaintingRepository.Repositories.WaterColorsPaintingRepo;
@@ -38,7 +40,12 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 		{
 			if(!request.ValidateData(_styleRepository))
 			{
-				return BadRequest(request.Errors);
+				return BadRequest(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.BadRequest,
+					Message = "Invalid data",
+					Data = request.Errors
+				});
 			}
 
 			var waterColorsPainting = new WatercolorsPainting
@@ -57,10 +64,84 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 
 			if (result)
 			{
-				return Ok("Create successfully!");
+				return Ok(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.Created,
+					Message = "Create successfully",
+					Data = waterColorsPainting.PaintingId
+				});
 			}
 
-			return BadRequest("Fail to create");
+			return StatusCode(500, new APIResponse()
+			{
+				StatusResponse = HttpStatusCode.InternalServerError,
+				Message = "Fail to create"
+			});
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> UpdateWaterColors(string id, [FromBody] WatercolorsPaintingRequest request)
+		{
+			if (!request.ValidateData(_styleRepository))
+			{
+				return BadRequest(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.BadRequest,
+					Message = "Invalid data",
+					Data = request.Errors
+				});
+			}
+
+			var waterColorsPainting = new WatercolorsPainting
+			{
+				PaintingId = id,
+				PaintingName = request.PaintingName,
+				PaintingDescription = request.PaintingDescription,
+				PaintingAuthor = request.PaintingAuthor,
+				Price = request.Price,
+				PublishYear = request.PublishYear,
+				StyleId = request.StyleId,
+				CreatedDate = DateTime.Now
+			};
+
+			var result = await _waterColorsPaintingRepository.Update(waterColorsPainting);
+
+			if (result)
+			{
+				return Ok(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.OK,
+					Message = "Update successfully",
+					Data = waterColorsPainting.PaintingId
+				});
+			}
+
+			return StatusCode(500, new APIResponse()
+			{
+				StatusResponse = HttpStatusCode.InternalServerError,
+				Message = "Fail to update"
+			});
+		}
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteWaterColors(string id)
+		{
+			var result = await _waterColorsPaintingRepository.Delete(id);
+
+			if (result)
+			{
+				return Ok(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.OK,
+					Message = "Delete successfully",
+				});
+			}
+
+			return StatusCode(500, new APIResponse()
+			{
+				StatusResponse = HttpStatusCode.InternalServerError,
+				Message = "Fail to delete"
+			});
 		}
 	}
 }

@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using PEPRN231_FA24_TongTranLeHuy_BE.Models;
 using Services;
+using System.Net;
 using WatercolorsPaintingRepository.Repositories.UserAccountRepo;
 
 namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 {
 	[ApiController]
+	[Route("api/v1/authentication")]
 	public class AccountController : Controller
 	{
 		private readonly IUserAccountRepository _userAccountRepository;
@@ -24,7 +27,11 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 
 			if(user == null)
 			{
-				return BadRequest("Invalid email or password");
+				return BadRequest(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.BadRequest,
+					Message = "Email or password is incorrect"
+				});
 			}
 
 			var response = new UserLoginResponse
@@ -35,7 +42,12 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 				Token = _authenticationService.GenerateToken(user) ?? ""
 			};
 
-			return Ok(response);
+			return Ok(new APIResponse()
+			{
+				StatusResponse = HttpStatusCode.OK,
+				Message = "Login successfully",
+				Data = response
+			});
 		}
 	}
 }

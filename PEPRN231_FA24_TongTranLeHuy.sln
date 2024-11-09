@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEPRN231_FA24_TongTranLeHuy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatercolorsPaintingRepository", "WatercolorsPaintingRepository\WatercolorsPaintingRepository.csproj", "{AE695509-77F1-492F-99DD-74D416039E12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEPRN231_FA24_TongTranLeHuy_FE", "PEPRN231_FA24_TongTranLeHuy_FE\PEPRN231_FA24_TongTranLeHuy_FE.csproj", "{99E2D868-BAC7-48D4-868D-09B87D41BEF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AE695509-77F1-492F-99DD-74D416039E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE695509-77F1-492F-99DD-74D416039E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE695509-77F1-492F-99DD-74D416039E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E2D868-BAC7-48D4-868D-09B87D41BEF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E2D868-BAC7-48D4-868D-09B87D41BEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E2D868-BAC7-48D4-868D-09B87D41BEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E2D868-BAC7-48D4-868D-09B87D41BEF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
