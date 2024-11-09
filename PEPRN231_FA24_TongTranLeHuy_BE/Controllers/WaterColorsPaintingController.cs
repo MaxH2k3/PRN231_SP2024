@@ -35,6 +35,27 @@ namespace PEPRN231_FA24_TongTranLeHuy_BE.Controllers
 			return Ok(waterColorsPaintins);
 		}
 
+		public async Task<IActionResult> GetWaterColorsById(string id)
+		{
+			var waterColorsPainting = await _waterColorsPaintingRepository.GetById(id);
+
+			if (waterColorsPainting == null)
+			{
+				return NotFound(new APIResponse()
+				{
+					StatusResponse = HttpStatusCode.NotFound,
+					Message = "Not found"
+				});
+			}
+
+			return Ok(new APIResponse()
+			{
+				StatusResponse = HttpStatusCode.OK,
+				Message = "Success",
+				Data = waterColorsPainting
+			});
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> AddWaterColors([FromBody] WatercolorsPaintingRequest request)
 		{

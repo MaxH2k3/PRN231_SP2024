@@ -1,0 +1,67 @@
+-- Tạo database
+CREATE DATABASE WatercolorsPainting2024DB;
+GO
+
+USE WatercolorsPainting2024DB;
+GO
+
+-- Tạo bảng Style
+CREATE TABLE Style (
+    StyleId NVARCHAR(50) PRIMARY KEY, -- Khóa chính
+    StyleName NVARCHAR(255) NOT NULL, -- Tên kiểu
+    StyleDescription NVARCHAR(MAX) NOT NULL, -- Mô tả kiểu
+    OriginalCountry NVARCHAR(255) NULL -- Quốc gia gốc
+);
+
+-- Tạo bảng UserAccount
+CREATE TABLE UserAccount (
+    UserAccountId INT IDENTITY(1,1) PRIMARY KEY, -- Khóa chính, tự động tăng
+    UserPassword NVARCHAR(255) NOT NULL, -- Mật khẩu
+    UserFullName NVARCHAR(255) NOT NULL, -- Họ tên người dùng
+    UserEmail NVARCHAR(255) NULL, -- Email người dùng
+    Role INT NULL -- Vai trò (có thể null)
+);
+
+-- Tạo bảng WatercolorsPainting
+CREATE TABLE WatercolorsPainting (
+    PaintingId NVARCHAR(50) PRIMARY KEY, -- Khóa chính
+    PaintingName NVARCHAR(255) NOT NULL, -- Tên bức tranh
+    PaintingDescription NVARCHAR(MAX) NULL, -- Mô tả bức tranh
+    PaintingAuthor NVARCHAR(255) NULL, -- Tác giả bức tranh
+    Price DECIMAL(18, 2) NULL, -- Giá bức tranh
+    PublishYear INT NULL, -- Năm xuất bản
+    CreatedDate DATETIME NULL, -- Ngày tạo
+    StyleId NVARCHAR(50) NULL, -- Khóa ngoại tham chiếu tới Style
+    CONSTRAINT FK_WatercolorsPainting_Style FOREIGN KEY (StyleId) REFERENCES Style (StyleId)
+);
+
+
+
+INSERT INTO UserAccount (UserPassword, UserFullName, UserEmail, Role)
+VALUES 
+('admin123', 'Administrator User', 'admin@example.com', 1), -- Role: Administrator
+('staff123', 'Staff User', 'staff@example.com', 2),         -- Role: Staff
+('manager123', 'Manager User', 'manager@example.com', 3),   -- Role: Manager
+('customer123', 'Customer User', 'customer@example.com', 4); -- Role: Customer
+
+INSERT INTO Style (StyleId, StyleName, StyleDescription, OriginalCountry)
+VALUES 
+('S001', 'Impressionism', 'A style characterized by loose brushwork and a focus on light.', 'France'),
+('S002', 'Expressionism', 'A style emphasizing emotional experience over realism.', 'Germany'),
+('S003', 'Cubism', 'A style featuring fragmented and abstracted forms.', 'Spain'),
+('S004', 'Surrealism', 'A style focusing on dream-like and fantastical imagery.', 'France'),
+('S005', 'Realism', 'A style aiming to depict subjects as they appear in real life.', 'Russia');
+
+-- Thêm dữ liệu vào bảng WatercolorsPainting
+INSERT INTO WatercolorsPainting (PaintingId, PaintingName, PaintingDescription, PaintingAuthor, Price, PublishYear, CreatedDate, StyleId)
+VALUES
+('P001', 'Sunrise Over Paris', 'A beautiful depiction of sunrise in Paris.', 'Claude Monet', 150.00, 1880, '2024-01-01', 'S001'),
+('P002', 'The Real Worker', 'A painting showing the hard work of common people.', 'Gustave Courbet', 200.00, 1855, '2024-01-02', 'S002'),
+('P003', 'Shapes of Freedom', 'An abstract representation of freedom.', 'Piet Mondrian', 300.00, 1920, '2024-01-03', 'S003'),
+('P004', 'Dreamscape', 'A surreal image of a dream world.', 'Salvador Dalí', 500.00, 1935, '2024-01-04', 'S004'),
+('P005', 'The Scream', 'A haunting expressionist painting.', 'Edvard Munch', 450.00, 1893, '2024-01-05', 'S005'),
+('P006', 'Morning Light', 'A calming piece showcasing the morning sun.', 'Paul Cézanne', 120.00, 1900, '2024-01-06', 'S001'),
+('P007', 'The Farmer', 'A realist portrait of a farmer.', 'Jean-François Millet', 180.00, 1860, '2024-01-07', 'S002'),
+('P008', 'Colorful Emotions', 'An abstract work of emotions.', 'Jackson Pollock', 350.00, 1945, '2024-01-08', 'S003'),
+('P009', 'Illusions', 'A surreal work playing with perspective.', 'René Magritte', 400.00, 1928, '2024-01-09', 'S004'),
+('P010', 'Anguish', 'An intense expressionist piece.', 'Franz Marc', 220.00, 1913, '2024-01-10', 'S005');

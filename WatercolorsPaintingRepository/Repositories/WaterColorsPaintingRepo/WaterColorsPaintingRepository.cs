@@ -17,6 +17,13 @@ namespace WatercolorsPaintingRepository.Repositories.WaterColorsPaintingRepo
 			_context = context;
 		}
 
+		public async Task<WatercolorsPainting?> GetById(string id)
+		{
+			return await _context.WatercolorsPaintings
+				.Include(p => p.Style)
+				.FirstOrDefaultAsync(p => p.PaintingId.Equals(id));
+		}
+
 		public async Task<bool> Add(WatercolorsPainting watercolorsPainting)
 		{
 			await _context.AddAsync(watercolorsPainting);

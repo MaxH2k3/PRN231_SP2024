@@ -14,5 +14,6 @@ namespace WatercolorsPaintingRepository.Repositories.WaterColorsPaintingRepo
 		Task<bool> Update(WatercolorsPainting watercolorsPainting);
 		Task<IEnumerable<WatercolorsPainting>> GetAll();
 		Task<string> CreateId();
+		Task<WatercolorsPainting?> GetById(string id);
 	}
 }
